@@ -1,0 +1,8 @@
+
+[general]
+name=BuenosAires Converter
+description=A QGIS plugin that converts layers to EPSG:9497
+version=1.0
+qgisMinimumVersion=3.0
+author=Thomas Artopoulos
+email=thomas.artopoulos@gmail.com
