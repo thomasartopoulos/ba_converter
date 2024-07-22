@@ -9,3 +9,4 @@ author=Thomas Artopoulos
 email=thomas.artopoulos@gmail.com
 tracker=https://github.com/thomasartopoulos/ba_converter-qgis-plugin/issues
 repository=https://github.com/thomasartopoulos/ba_converter-qgis-plugin
+homepage=https://github.com/thomasartopoulos/ba_converter-qgis-plugin
