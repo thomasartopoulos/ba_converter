@@ -2,7 +2,10 @@
 [general]
 name=BuenosAires Converter
 description=A QGIS plugin that converts layers to EPSG:9497
+about=Transform your layers and save the custom B.A. CRS.
 version=1.0
 qgisMinimumVersion=3.0
 author=Thomas Artopoulos
 email=thomas.artopoulos@gmail.com
+tracker=https://github.com/thomasartopoulos/ba_converter-qgis-plugin/issues
+repository=https://github.com/thomasartopoulos/ba_converter-qgis-plugin
