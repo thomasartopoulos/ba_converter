@@ -1,5 +1,5 @@
 import os
-from PyQt5.QtWidgets import QAction, QFileDialog, QDialog, QListWidget, QListWidgetItem, QLineEdit, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QCheckBox
+from PyQt5.QtWidgets import QAction, QFileDialog, QDialog, QListWidget, QListWidgetItem, QLineEdit, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QCheckBox, QComboBox
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from PyQt5.QtCore import Qt
 from qgis.core import QgsProject, QgsCoordinateReferenceSystem, QgsVectorFileWriter, QgsCoordinateReferenceSystem
@@ -62,6 +62,12 @@ class LayerConverterDialog(QDialog):
         folder_layout.addWidget(self.selectFolderButton)
         main_layout.addLayout(folder_layout)
 
+        # Adding the QComboBox for output format selection
+        self.outputFormatComboBox = QComboBox(self)
+        self.outputFormatComboBox.addItem("Shapefile")
+        self.outputFormatComboBox.addItem("GeoPackage")
+        main_layout.addWidget(self.outputFormatComboBox)
+
         self.showFileCheckBox = QCheckBox("Show file after converting", self)
         main_layout.addWidget(self.showFileCheckBox)
 
@@ -101,11 +107,21 @@ class LayerConverterDialog(QDialog):
             self.iface.messageBar().pushMessage("Error", "No layers selected.", level=Qgis.Critical)
             return
 
+        selected_format = self.outputFormatComboBox.currentText()
+        driver_name = {
+            "Shapefile": "ESRI Shapefile",
+            "GeoPackage": "GPKG"
+        }.get(selected_format, "ESRI Shapefile")
+
         for item in selected_items:
             selected_layer = item.data(Qt.UserRole)
             if selected_layer and selected_layer.isValid():
-                output_path = os.path.join(output_folder, f'{selected_layer.name()}_CABA-PG07.shp')
-                result, error = QgsVectorFileWriter.writeAsVectorFormat(selected_layer, output_path, 'utf-8', crs, driverName="ESRI Shapefile")
+                file_extension = {
+                    "Shapefile": "shp",
+                    "GeoPackage": "gpkg"
+                }.get(selected_format, "shp")
+                output_path = os.path.join(output_folder, f'{selected_layer.name()}_CABA-PG07.{file_extension}')
+                result, error = QgsVectorFileWriter.writeAsVectorFormat(selected_layer, output_path, 'utf-8', crs, driverName=driver_name)
                 if result == QgsVectorFileWriter.NoError:
                     self.iface.messageBar().pushMessage("Success", f"Layer '{selected_layer.name()}' converted successfully!", level=Qgis.Info)
                     if self.showFileCheckBox.isChecked():

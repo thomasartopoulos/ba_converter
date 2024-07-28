@@ -25,6 +25,23 @@
     <widget class="QLineEdit" name="outputFolderLineEdit"/>
    </item>
    <item>
+    <widget class="QComboBox" name="outputFormatComboBox">
+     <property name="toolTip">
+      <string>Select Output Format</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Shapefile</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>GeoPackage</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
     <widget class="QPushButton" name="convertButton">
      <property name="text">
       <string>Convert Layers</string>
@@ -36,3 +53,4 @@
  <resources/>
  <connections/>
 </ui>
+
